@@ -1,0 +1,114 @@
+:root {
+      --bg: #0b1220;
+      --panel: #0f1b31;
+      --accent: #25e69a;
+      --accent-2: #8be9fd;
+      --danger: #ff6b6b;
+      --text: #e7eefc;
+      --grid-size: 21; /* nombre de cases par côté */
+      --cell-size: 22px; /* taille d'une case */
+      --gap: 2px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Inter, Arial, sans-serif;
+      background: radial-gradient(1000px 500px at 20% -10%, #1a2b52 0%, var(--bg) 40%, var(--bg) 100%);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+    }
+
+    .app {
+      width: min(95vw, 980px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .board-wrap {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(var(--grid-size), var(--cell-size));
+      grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+      gap: var(--gap);
+      background: #0a1428;
+      padding: var(--gap);
+      border-radius: 16px;
+      position: relative;
+      touch-action: none; /* pour les gestes tactiles */
+      user-select: none;
+    }
+
+    .cell { width: var(--cell-size); height: var(--cell-size); border-radius: 6px; background: rgba(255,255,255,0.02); }
+    .snake { background: linear-gradient(180deg, #2cf5a7, #0fbf77); box-shadow: 0 0 8px rgba(37,230,154,0.5) inset; }
+    .snake.head { outline: 2px solid rgba(255,255,255,0.15); }
+    .food { background: radial-gradient(circle at 30% 30%, #fff 0%, #ffd166 20%, #ff9f1c 60%, #ff6b6b 100%); box-shadow: 0 0 12px rgba(255, 159, 28, 0.7); }
+    .wall { background: #23314f; }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 14px 16px;
+      position: sticky;
+      top: 16px;
+      min-width: 240px;
+    }
+
+    .h {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px;
+    }
+
+    .title { font-weight: 700; letter-spacing: 0.3px; }
+    .stat { font-variant-numeric: tabular-nums; }
+    .bad { color: var(--danger); }
+    .ok { color: var(--accent); }
+
+    .controls { display: grid; gap: 8px; margin-top: 8px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    button, select {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: #13213d;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
+    }
+    button:hover { border-color: rgba(255,255,255,0.24); }
+    button:active { transform: translateY(1px) scale(0.99); }
+
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #0d1830; border: 1px solid rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 6px; }
+
+    .legend { font-size: 12px; color: #c8d6f3; opacity: 0.9; }
+
+    /* Commandes tactiles */
+    .touch {
+      display: none;
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .touch button { pointer-events: auto; position: absolute; width: 60px; height: 60px; border-radius: 50%; opacity: 0.9; }
+    .btn-up { left: 50%; top: 8px; transform: translateX(-50%); }
+    .btn-down { left: 50%; bottom: 8px; transform: translateX(-50%); }
+    .btn-left { left: 8px; top: 50%; transform: translateY(-50%); }
+    .btn-right { right: 8px; top: 50%; transform: translateY(-50%); }
+
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; }
+      .panel { position: static; }
+      .touch { display: block; }
+    }
