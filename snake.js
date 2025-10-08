@@ -1,5 +1,12 @@
 // testsnake.js — avec gestions d'erreurs
 
+// Evite l'initialisation multiple si le script est chargé 2x
+if (window.__SNAKE_LOADED__) {
+  console.warn("Snake déjà initialisé: second chargement ignoré.");
+  // Ne rien faire sur ce second chargement
+} else {
+  window.__SNAKE_LOADED__ = true;
+
 (() => {
   "use strict";
 
@@ -431,3 +438,4 @@
     }
   }
 })();
+}
