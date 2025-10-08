@@ -238,6 +238,7 @@ if (window.__SNAKE_LOADED__) {
         if (state.running) return;
         state.running = true;
         state.loopId = setInterval(ticked, state.tickMs);
+        resetGame({ keepBest: true });
       }
 
       function stop() {
